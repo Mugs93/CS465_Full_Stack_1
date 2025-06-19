@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trips } from '../data/trips';
 import { TripCard } from '../trip-card/trip-card';
-
 import { Trip } from '../models/trip';
 import { TripData } from '../services/trip-data';
-
 import { Router } from '@angular/router';
+import { Authentication } from '../services/authentication';
 
 @Component({
   selector: 'app-trip-listing',
@@ -23,13 +22,22 @@ export class TripListing implements OnInit {
 
   constructor(
     private tripData: TripData, 
-    private router: Router
+    private router: Router,
+    private authenticationService: Authentication
   ) {
     console.log('trip-listing constructor');
   }
 
+  public isLoggedIn() {
+    return this.authenticationService.isLoggedIn();
+  }
+
   public addTrip(): void {
     this.router.navigate(['add-trip']);
+  }
+
+  public deleteTrip(): void {
+    this.router.navigate(['delete-trip']);
   }
 
   private getStuff(): void {
